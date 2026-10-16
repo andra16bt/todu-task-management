@@ -1,0 +1,65 @@
+/* Isian form, pilihan (radio chip), pilihan warna, langkah proyek */
+.field { display: grid; gap: 6px; margin-bottom: var(--sp-5); border: 0; padding: 0; min-width: 0; }
+.field > span, legend {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0;
+}
+legend { margin-bottom: 6px; }
+.in {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--sp-4);
+  border: 2.5px solid transparent;
+  border-radius: var(--r-field);
+  background: var(--white);
+  color: var(--text);
+  font: 500 16px/22px var(--font);
+  appearance: none;
+  -webkit-appearance: none;
+}
+textarea.in { padding: var(--sp-3) var(--sp-4); min-height: 96px; resize: none; }
+.in:focus { outline: 0; border-color: var(--ink); }
+.in[aria-invalid="true"] { border-color: var(--err); }
+.in[type="date"], .in[type="time"] { display: block; text-align: left; } /* Safari iOS: rata kiri */
+.in::-webkit-date-and-time-value { text-align: left; }
+.err { font-size: 12px; font-weight: 700; font-style: normal; color: var(--err); margin: -8px 0 var(--sp-3); }
+.field .err { margin: 0; }
+#e-dl { margin: -12px 0 var(--sp-5); }
+.sheet .grid2 { margin-bottom: 0; }
+
+/* Pilihan chip */
+.opts { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; }
+.opt span {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background var(--dur-fast) var(--ease);
+}
+.opt input:checked + span { background: var(--ink); color: var(--lime); }
+.opt input:focus-visible + span { outline: 3px solid var(--olive); outline-offset: 2px; }
+
+/* Pilihan warna */
+#o-warna { display: grid; grid-template-columns: repeat(4, 1fr); justify-items: center; gap: var(--sp-2); }
+.sw span { width: 44px; height: 44px; padding: 0; justify-content: center; color: #fff; }
+.sw .i { opacity: 0; width: 18px; height: 18px; }
+.sw input:checked + span .i { opacity: 1; }
+.sw input:checked + span { outline: 4px solid rgba(0, 0, 0, 0.2); }
+
+/* Langkah proyek */
+.lrow { display: flex; align-items: center; gap: var(--sp-2); min-height: 48px; }
+.addrow { display: flex; gap: var(--sp-2); }
+.addrow .btn { min-height: 52px; padding: 0 var(--sp-4); }
+.coret { text-decoration: line-through; color: var(--muted); }

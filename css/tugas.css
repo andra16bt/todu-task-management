@@ -1,0 +1,114 @@
+/* Kartu tugas, chip, centang, timeline, proyek, baris mata kuliah */
+[data-act="edit"] { cursor: pointer; }
+.tcard { display: grid; gap: var(--sp-1); padding: var(--sp-4) var(--sp-5); border-radius: var(--r-card); margin-bottom: var(--sp-3); }
+.tcard.lite, .tcard.done { background: var(--low); }
+.tcard.done h3 { text-decoration: line-through; color: var(--muted); }
+.tmeta { display: flex; flex-wrap: wrap; gap: 6px; padding-right: var(--sp-5); }
+.trow { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.mk { display: flex; align-items: center; gap: var(--sp-2); font-size: 12px; font-weight: 700; color: var(--lime); min-width: 0; }
+.lite .mk, .done .mk { color: var(--olive); }
+
+/* Chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.chip .i { width: 14px; height: 14px; }
+.chip.lime { background: var(--lime); color: var(--ink); }
+.chip.err { background: var(--err-bg); color: var(--err); }
+.chip.prog { background: var(--olive); color: #fff; }
+.chip.ink { background: var(--ink); color: var(--lime); }
+.chip.pr { background: rgba(219, 231, 204, 0.2); color: var(--on-dark); }
+.chip.pr.tinggi { background: var(--err); color: #fff; }
+.lite .chip.lime, .lite .chip.pr { background: var(--mid); color: var(--muted); }
+.lite .chip.pr.tinggi { background: var(--err); color: #fff; }
+
+/* Centang bulat */
+.check {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2.5px solid var(--lime);
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-base) var(--ease);
+}
+.check .i { opacity: 0; }
+.check:active { transform: scale(0.92); }
+.check.prog::before { content: ""; grid-area: 1/1; width: 16px; height: 16px; border-radius: 50%; background: var(--lime); }
+.check[aria-checked="true"] { background: var(--lime); }
+.check[aria-checked="true"] .i { opacity: 1; }
+.lite .check, .done .check, .sheet .check { border-color: var(--olive); }
+.lite .check.prog::before { background: var(--olive); }
+.done .check, .sheet .check[aria-checked="true"] { background: var(--olive); color: #fff; }
+.done .check .i { opacity: 1; }
+
+/* Timeline */
+.tl { list-style: none; padding: 0; }
+.tl li { position: relative; display: grid; grid-template-columns: 44px 14px 1fr; gap: var(--sp-3); }
+.tl li::before { content: ""; position: absolute; left: 62px; top: 22px; bottom: -12px; width: 2px; background: rgba(68, 72, 68, 0.2); }
+.tl li:last-child::before { display: none; }
+.tl time { font-size: 12px; font-weight: 800; padding-top: 6px; }
+.tl time.late { color: var(--err); }
+.tdot {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: #747874;
+  border: 3px solid var(--high);
+  box-sizing: content-box;
+  margin-left: -3px;
+  margin-right: -3px;
+}
+.tdot.prog { background: var(--olive); border-color: var(--lime); }
+.tdot.ok { background: var(--olive); }
+.tdot.late { background: var(--err); border-color: var(--err-bg); }
+
+/* Proyek */
+.proj { background: var(--mid); display: grid; gap: var(--sp-1); }
+.proj .wk-h { margin: var(--sp-2) 0; }
+.mk2 {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+.pc { color: var(--olive); }
+.bar { width: 100%; height: 12px; border-radius: var(--r-pill); background: var(--highest); overflow: hidden; }
+.bar i { display: block; height: 100%; width: var(--p); background: var(--olive); border-radius: var(--r-pill); transition: width var(--dur-slow) var(--ease); }
+.steps { display: flex; gap: 6px; overflow-x: auto; margin-top: var(--sp-3); }
+.stp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  background: var(--low);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.stp .i { width: 14px; height: 14px; }
+.stp.ok { background: var(--lime); color: #3b4d00; }
+
+/* Mata kuliah */
+.row { display: flex; align-items: center; gap: var(--sp-3); min-height: 64px; padding: var(--sp-3) var(--sp-4); }
+.grow { flex: 1; min-width: 0; }

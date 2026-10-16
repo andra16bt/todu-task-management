@@ -1,0 +1,56 @@
+/* Bottom sheet, dialog konfirmasi, toast */
+.sheet {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.4);
+}
+.sheet:target { display: flex; }
+.overlay { position: absolute; inset: 0; }
+.sheet-body {
+  position: relative;
+  width: 100%;
+  max-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-3) var(--sp-5) 0;
+  background: var(--surface);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.sheet:target .sheet-body { animation: naik var(--dur-slow) var(--ease); }
+@keyframes naik { from { transform: translateY(100%); } }
+.grip { align-self: center; width: 40px; height: 6px; border-radius: var(--r-pill); background: #c4c7c2; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-2) 0 var(--sp-3); }
+.sheet-scroll { overflow-y: auto; overscroll-behavior: contain; }
+.sheet-foot { display: grid; gap: var(--sp-2); padding: var(--sp-3) 0 calc(var(--sp-4) + env(safe-area-inset-bottom)); }
+
+.dlg { align-items: center; padding: var(--sp-4); }
+.dlg-box {
+  position: relative;
+  width: 100%;
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-6);
+  background: var(--surface);
+  border-radius: var(--r-sm);
+}
+.dlg:target .dlg-box { animation: muncul var(--dur-base) var(--ease); }
+@keyframes muncul { from { opacity: 0; transform: scale(0.96); } }
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 150px;
+  transform: translateX(-50%);
+  z-index: 20;
+  max-width: 90%;
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--ink);
+  color: var(--lime);
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}

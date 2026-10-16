@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <!-- viewport-fit=cover: layar penuh sampai area notch iPhone -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#F2FEE2" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>TODU Kampus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Urutan penting: token -> dasar -> kerangka -> komponen -> form -> overlay -->
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/cards.css" />
+    <link rel="stylesheet" href="css/tugas.css" />
+    <link rel="stylesheet" href="css/controls.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/overlays.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="top">
+        <div class="brand">
+          <svg viewBox="0 0 96 96" aria-hidden="true">
+            <path style="fill: var(--ink)" d="M48 48H0A48 48 0 0148 0z" />
+            <path style="fill: var(--mint)" d="M48 48V0a48 48 0 0148 48z" />
+            <path style="fill: var(--ink)" d="M48 48h48a48 48 0 01-48 48z" />
+            <path style="fill: var(--olive)" d="M48 48v48A48 48 0 010 48z" />
+          </svg>
+          <div><b>TODU Kampus</b><span id="judul-hal">Beranda</span></div>
+        </div>
+        <div class="avatar" aria-hidden="true">
+          <svg class="i"><use href="assets/icons.svg#i-person" /></svg>
+        </div>
+      </header>
+
+      <main>
+        <!-- Isi layar-layar ini dibuat oleh js/views/ -->
+        <section class="screen" id="beranda"></section>
+        <section class="screen" id="tugas"></section>
+        <section class="screen" id="proyek"></section>
+        <section class="screen" id="statistik"></section>
+        <section class="screen" id="matkul"></section>
+
+        <!-- ===== WELCOME (tampil sekali, pertama kali buka) ===== -->
+        <section class="screen" id="welcome">
+          <svg class="logo" viewBox="0 0 96 96" aria-hidden="true">
+            <path style="fill: var(--ink)" d="M48 48H0A48 48 0 0148 0z" />
+            <path style="fill: var(--mint)" d="M48 48V0a48 48 0 0148 48z" />
+            <path style="fill: var(--ink)" d="M48 48h48a48 48 0 01-48 48z" />
+            <path style="fill: var(--olive)" d="M48 48v48A48 48 0 010 48z" />
+          </svg>
+          <div>
+            <h1 class="xl">TODU Kampus</h1>
+            <p class="muted-l">Tugas kuliah, tertata rapi</p>
+          </div>
+          <label class="field w100"
+            ><span>Siapa namamu?</span
+            ><input
+              class="in"
+              id="in-nama"
+              maxlength="30"
+              type="text"
+              autocomplete="given-name"
+              placeholder="Nama panggilan"
+          /></label>
+          <a class="btn btn-ink w100" id="btn-mulai" href="#beranda"
+            >Mulai <svg class="i"><use href="assets/icons.svg#i-arrow" /></svg
+          ></a>
+        </section>
+      </main>
+
+      <!-- Bar aksi utama + navigasi bawah -->
+      <div class="dock">
+        <a class="btn btn-ink addbar" id="addbar" href="#sheet"
+          ><svg class="i"><use href="assets/icons.svg#i-plus" /></svg
+          ><span>Tambah Tugas</span></a
+        >
+        <nav class="nav" aria-label="Navigasi utama">
+          <a href="#beranda"><svg class="i"><use href="assets/icons.svg#i-home" /></svg>Beranda</a>
+          <a href="#tugas"><svg class="i"><use href="assets/icons.svg#i-list" /></svg>Tugas</a>
+          <a href="#statistik"><svg class="i"><use href="assets/icons.svg#i-target" /></svg>Target</a>
+          <a href="#matkul"><svg class="i"><use href="assets/icons.svg#i-book" /></svg>Matkul</a>
+        </nav>
+      </div>
+
+      <!-- ===== BOTTOM SHEET: Tambah/Edit Tugas ===== -->
+      <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <a class="overlay" data-tutup href="#tugas" aria-label="Tutup"></a>
+        <form class="sheet-body" id="f-tugas" novalidate>
+          <span class="grip"></span>
+          <div class="sheet-head">
+            <h2 id="sheet-title">Tugas Baru</h2>
+            <a class="icon-btn" data-tutup href="#tugas" aria-label="Tutup"
+              ><svg class="i"><use href="assets/icons.svg#i-close" /></svg
+            ></a>
+          </div>
+          <div class="sheet-scroll">
+            <label class="field"
+              ><span>Judul</span
+              ><input
+                class="in"
+                id="f-judul"
+                maxlength="80"
+                placeholder="Contoh: Laporan Praktikum"
+                aria-describedby="e-judul"
+              /><em class="err" id="e-judul" hidden>Judul wajib diisi.</em></label
+            >
+            <fieldset class="field">
+              <legend>Tipe</legend>
+              <div class="opts" id="o-tipe"></div>
+            </fieldset>
+            <fieldset class="field">
+              <legend>Mata kuliah</legend>
+              <div class="opts" id="o-mk"></div>
+              <p class="muted" id="mk-kosong" hidden>
+                Belum ada mata kuliah.
+                <a href="#matkul" style="color: var(--olive); text-decoration: underline"
+                  ><b>Tambah dulu di tab Matkul</b></a
+                >
+              </p>
+              <em class="err" id="e-mk-pilih" hidden>Pilih mata kuliah dulu.</em>
+            </fieldset>
+            <div class="grid2">
+              <label class="field"
+                ><span>Tanggal</span
+                ><input class="in" type="date" id="f-tgl" aria-describedby="e-dl"
+              /></label>
+              <label class="field"
+                ><span>Jam</span><input class="in" type="time" id="f-jam"
+              /></label>
+            </div>
+            <em class="err" id="e-dl" hidden>Tanggal dan jam wajib diisi.</em>
+            <fieldset class="field">
+              <legend>Prioritas</legend>
+              <div class="opts" id="o-prio"></div>
+            </fieldset>
+            <fieldset class="field" id="g-status" hidden>
+              <legend>Status</legend>
+              <div class="opts" id="o-status"></div>
+            </fieldset>
+            <div class="field" id="g-langkah" hidden>
+              <span>Langkah-langkah</span>
+              <div id="l-langkah"></div>
+              <div class="addrow">
+                <input class="in" id="f-langkah" maxlength="60" placeholder="Tambah langkah" /><button
+                  class="btn btn-white"
+                  type="button"
+                  data-act="tambah-langkah"
+                >
+                  Tambah
+                </button>
+              </div>
+            </div>
+            <label class="field"
+              ><span>Catatan</span
+              ><textarea class="in" id="f-catatan" rows="3" placeholder="Opsional"></textarea>
+            </label>
+          </div>
+          <div class="sheet-foot">
+            <button class="btn btn-ink" type="submit">Simpan</button>
+            <button class="btn btn-danger" type="button" id="b-hapus" data-act="minta-hapus" hidden>
+              Hapus tugas
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== BOTTOM SHEET: Tambah Mata Kuliah ===== -->
+      <div class="sheet" id="sheet-mk" role="dialog" aria-modal="true" aria-labelledby="mk-title">
+        <a class="overlay" data-tutup href="#matkul" aria-label="Tutup"></a>
+        <form class="sheet-body" id="f-mk" novalidate>
+          <span class="grip"></span>
+          <div class="sheet-head">
+            <h2 id="mk-title">Mata Kuliah Baru</h2>
+            <a class="icon-btn" data-tutup href="#matkul" aria-label="Tutup"
+              ><svg class="i"><use href="assets/icons.svg#i-close" /></svg
+            ></a>
+          </div>
+          <div class="sheet-scroll">
+            <label class="field"
+              ><span>Nama</span
+              ><input
+                class="in"
+                id="f-mk-nama"
+                maxlength="40"
+                placeholder="Contoh: Fisika Dasar"
+                aria-describedby="e-mk"
+              /><em class="err" id="e-mk" hidden>Nama wajib diisi.</em></label
+            >
+            <fieldset class="field">
+              <legend>Warna label</legend>
+              <div class="opts" id="o-warna"></div>
+            </fieldset>
+          </div>
+          <div class="sheet-foot">
+            <button class="btn btn-ink" type="submit">Simpan</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== DIALOG KONFIRMASI HAPUS ===== -->
+      <div class="sheet dlg" id="dialog" role="alertdialog" aria-labelledby="dlg-title">
+        <a class="overlay" data-tutup href="#tugas" aria-label="Batal"></a>
+        <div class="dlg-box">
+          <h2 id="dlg-title">Hapus?</h2>
+          <p class="muted" id="dlg-teks"></p>
+          <div class="grid2">
+            <button class="btn btn-white" type="button" data-tutup>Batal</button
+            ><button class="btn btn-danger" type="button" id="dlg-ok">Hapus</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+/* Kerangka aplikasi: header, area isi, perpindahan layar, dock & navigasi bawah */
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.top {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(64px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) var(--sp-4) 0;
+}
+.brand { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; }
+.brand svg { width: 32px; height: 32px; flex: none; }
+.brand b { display: block; font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: -0.01em; }
+.brand span {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
+.avatar .i { width: 18px; height: 18px; }
+main {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--sp-2) var(--sp-4) var(--sp-4);
+}
+.pagehead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0 var(--sp-5);
+}
+.pagehead .muted { font-size: 14px; line-height: 20px; margin-top: 2px; }
+
+/* Layar (pindah lewat :target) */
+.screen { display: none; }
+.screen:target { display: block; }
+.app:not(:has(.screen:target)) #beranda { display: block; }
+#welcome:target {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--sp-5);
+  text-align: center;
+  min-height: 100%;
+}
+.app:has(#welcome:target) .dock,
+.app:has(#welcome:target) .top,
+.app:has(#statistik:target) .addbar,
+.app:has(.sheet:target) .addbar { display: none; }
+.logo { width: 96px; height: 96px; }
+
+/* Dock: tombol tambah + navigasi bawah */
+.dock {
+  flex: none;
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4) calc(var(--sp-3) + env(safe-area-inset-bottom));
+}
+.nav {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-1);
+  height: 64px;
+  padding: var(--sp-1);
+  background: var(--low);
+  border-radius: var(--r-pill);
+}
+.nav a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+  border-radius: var(--r-pill);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 700;
+  transition: background var(--dur-base) var(--ease);
+}
+.nav .i { width: 22px; height: 22px; }
+.app:not(:has(.screen:target)) .nav [href="#beranda"],
+.app:has(#tugas:target, #proyek:target) .nav [href="#tugas"],
+.app:has(#statistik:target) .nav [href="#statistik"],
+.app:has(#matkul:target) .nav [href="#matkul"] {
+  background: var(--ink);
+  color: var(--lime);
+}
+.badge {
+  position: absolute;
+  top: 2px;
+  left: calc(50% + 6px);
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--err);
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}

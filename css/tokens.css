@@ -1,0 +1,46 @@
+/* Token desain: warna, radius, jarak, font, animasi */
+:root {
+  /* Warna permukaan */
+  --surface: #f2fee2;
+  --low: #ecf8dd;
+  --mid: #e6f2d7;
+  --high: #e0ecd2;
+  --highest: #dbe7cc;
+  --mint: #effbe0;
+  /* Warna utama */
+  --ink: #000;
+  --dark: #191d19;
+  --lime: #cdf06c;
+  --olive: #4f6600;
+  --white: #fff;
+  /* Teks */
+  --text: #151e0e;
+  --muted: #444844;
+  --on-dark: #f2fee2;
+  --on-dark-muted: #9aa89a;
+  /* Status */
+  --err: #ba1a1a;
+  --err-bg: #ffdad6;
+  --prio-tinggi: #ba1a1a;
+  --prio-sedang: #eab308;
+  --prio-rendah: #1fa37a;
+  /* Radius */
+  --r-lg: 32px;
+  --r-card: 28px;
+  --r-sm: 24px;
+  --r-field: 20px;
+  --r-pill: 999px;
+  /* Jarak */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  /* Font & animasi */
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "SF Pro Text", Arial, sans-serif;
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+  --dur-slow: 250ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
