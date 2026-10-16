@@ -76,10 +76,12 @@ export function tambahLangkah() {
   lk.push({ id: uid("l"), teks: s, selesai: false });
   f.value = "";
   rLangkah();
+  $("#l-langkah").lastElementChild.classList.add("baru");
 }
 export function toggleLangkah(i) {
   lk[i].selesai = !lk[i].selesai;
   rLangkah();
+  $(`[data-act="cek-langkah"][data-i="${i}"]`).classList.add("pop");
 }
 export function hapusLangkah(i) {
   lk.splice(i, 1);

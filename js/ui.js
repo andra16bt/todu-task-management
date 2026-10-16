@@ -5,6 +5,8 @@ let tmr;
 export function toast(s) {
   const e = $("#toast");
   e.textContent = s;
+  e.hidden = true; // matikan dulu supaya animasi muncul diulang
+  void e.offsetWidth;
   e.hidden = false;
   clearTimeout(tmr);
   tmr = setTimeout(() => (e.hidden = true), 2500);

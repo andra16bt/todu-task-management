@@ -1,5 +1,5 @@
-/* Aturan bisnis: status tugas, tenggat, progres, streak */
-import { state, simpanStreak } from "./state.js";
+/* Aturan bisnis: status tugas, tenggat, progres, rangkaian tepat waktu */
+import { state } from "./state.js";
 import { p2, tgl, nomorHari } from "./utils.js";
 
 export const byDl = (a, b) => new Date(a.deadline) - new Date(b.deadline);
@@ -45,37 +45,37 @@ export const persen = (t) => {
       : 0;
 };
 
-/* ----- Streak ----- */
+/* ----- Rangkaian tepat waktu & progres pekan ----- */
 
-// Ada tugas selesai di hari d?
-export const aktifHari = (d) =>
-  state.tugas.some((t) => t.selesaiPada && tgl(new Date(t.selesaiPada)) === d);
-
-// Dipanggil tiap render: reset jika ada hari yang terlewat
-export function cekStreak() {
-  const s = state.streak;
-  if (s.terakhirAktif && nomorHari(tgl(new Date())) - nomorHari(s.terakhirAktif) > 1) {
-    state.streak = { jumlah: 0, terakhirAktif: null };
-    simpanStreak();
+// Jumlah tugas berturut-turut yang selesai sebelum deadline.
+// Dihitung dari data (tidak disimpan). Putus oleh tugas yang selesai terlambat
+// atau belum selesai padahal deadline lewat. Tugas yang belum jatuh tempo dilewati.
+export function rangkaianTepatWaktu() {
+  let n = 0;
+  for (const t of [...state.tugas].sort(byDl).reverse()) {
+    if (t.status === "selesai") {
+      if (t.selesaiPada && new Date(t.selesaiPada) <= new Date(t.deadline)) n++;
+      else break;
+    } else if (terlewat(t)) break;
   }
+  return n;
 }
 
-// Dipanggil tiap centang berubah
-export function updateStreak() {
-  const hi = tgl(new Date()),
-    s = state.streak;
-  if (aktifHari(hi)) {
-    if (s.terakhirAktif !== hi) {
-      const lanjut = s.terakhirAktif && nomorHari(hi) - nomorHari(s.terakhirAktif) === 1;
-      state.streak = { jumlah: (lanjut ? s.jumlah : 0) + 1, terakhirAktif: hi };
-    }
-  } else if (s.terakhirAktif === hi) {
-    // centang dibatalkan & tidak ada lagi tugas selesai hari ini
-    const j = Math.max(0, s.jumlah - 1);
-    state.streak = {
-      jumlah: j,
-      terakhirAktif: j ? tgl(new Date(Date.now() - 864e5)) : null,
-    };
-  }
-  simpanStreak();
+// Senin 00:00 pekan ini
+export function senin(now = new Date()) {
+  const s = new Date(now);
+  s.setHours(0, 0, 0, 0);
+  s.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  return s;
+}
+
+// Tugas yang jatuh tempo pekan ini (Senin-Minggu)
+export function tugasPekan() {
+  const a = senin(),
+    b = new Date(a);
+  b.setDate(a.getDate() + 7);
+  return state.tugas.filter((t) => {
+    const d = new Date(t.deadline);
+    return d >= a && d < b;
+  });
 }

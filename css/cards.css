@@ -88,3 +88,4 @@
 .ck.on { background: var(--olive); color: #fff; }
 .today .ck { background: var(--lime); color: var(--ink); }
 .ck.on::after, .today .ck::after { display: none; }
+.week + .bar, .week + .muted { margin-top: var(--sp-3); }

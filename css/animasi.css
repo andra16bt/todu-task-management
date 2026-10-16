@@ -1,0 +1,52 @@
+/* Animasi: perpindahan layar, umpan balik sentuhan, elemen yang muncul.
+   Semua otomatis nonaktif jika perangkat memilih "kurangi gerakan" (lihat base.css). */
+
+@keyframes masuk { from { opacity: 0; transform: translate(var(--geser, 0px), 10px); } }
+@keyframes pop { 40% { transform: scale(1.18); } }
+@keyframes pop-kecil { 50% { transform: scale(1.06); } }
+@keyframes isi { from { width: 0; } }
+@keyframes pudar { from { background-color: rgba(0, 0, 0, 0); } }
+@keyframes toast-masuk { from { opacity: 0; transform: translate(-50%, 12px) scale(0.96); } }
+@keyframes denyut { 50% { transform: scale(1.18); } }
+
+/* ---------- 1. Perpindahan layar ----------
+   Kelas .masuk dipasang router.js hanya saat pindah tab, jadi render ulang
+   (centang tugas, hitung mundur) tidak memicu animasi lagi. */
+.screen.masuk > * { animation: masuk var(--dur-slow) var(--ease) backwards; animation-delay: calc(var(--k, 0) * 45ms); }
+.screen.masuk > :nth-child(2) { --k: 1; }
+.screen.masuk > :nth-child(3) { --k: 2; }
+.screen.masuk > :nth-child(4) { --k: 3; }
+.screen.masuk > :nth-child(5) { --k: 4; }
+.screen.masuk > :nth-child(6) { --k: 5; }
+.screen.masuk > :nth-child(7) { --k: 6; }
+.screen.masuk > :nth-child(n + 8) { --k: 7; }
+
+/* Timeline: tiap baris muncul bergantian (bukan satu blok) */
+.screen.masuk > .tl { animation: none; }
+.screen.masuk .tl > li { animation: masuk var(--dur-slow) var(--ease) backwards; animation-delay: calc(120ms + var(--k, 0) * 45ms); }
+.screen.masuk .tl > li:nth-child(2) { --k: 1; }
+.screen.masuk .tl > li:nth-child(3) { --k: 2; }
+.screen.masuk .tl > li:nth-child(4) { --k: 3; }
+.screen.masuk .tl > li:nth-child(5) { --k: 4; }
+.screen.masuk .tl > li:nth-child(n + 6) { --k: 5; }
+
+/* Progress bar terisi & centang pekan "pop" saat layar dibuka */
+.screen.masuk .bar i { animation: isi 600ms var(--ease) 200ms backwards; }
+.screen.masuk .ck.on { animation: pop 400ms var(--ease) 300ms backwards; }
+
+/* ---------- 2. Umpan balik sentuhan ---------- */
+.tcard, .sum, .proj, .banner { transition: transform var(--dur-fast) var(--ease); }
+.tcard:active:not(:has(.check:active)),
+.sum:active,
+.proj:active,
+.banner:active { transform: scale(0.98); }
+.opt span { transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+.opt:active span { transform: scale(0.95); }
+.opt input:checked + span { animation: pop-kecil 220ms var(--ease); }
+
+/* ---------- 3. Aksi pengguna ---------- */
+.check.pop { animation: pop 380ms var(--ease); } /* centang tugas/langkah (dipasang lewat JS) */
+.lrow.baru { animation: masuk var(--dur-base) var(--ease) backwards; } /* langkah baru */
+.toast:not([hidden]) { animation: toast-masuk var(--dur-base) var(--ease); }
+.sheet:target { animation: pudar var(--dur-base) var(--ease); } /* latar gelap memudar masuk */
+.banner > .i:first-child { animation: denyut 1.8s ease-in-out infinite; }

@@ -1,7 +1,8 @@
 /* Render semua layar sekaligus + badge menu + judul header */
 import { $ } from "../utils.js";
+import { state } from "../state.js";
 import { JUDUL_HALAMAN } from "../config.js";
-import { cekStreak, mendesak } from "../rules.js";
+import { mendesak } from "../rules.js";
 import { renderBeranda } from "./beranda.js";
 import { renderHarian } from "./tugas.js";
 import { renderProyek } from "./proyek.js";
@@ -9,7 +10,6 @@ import { renderTarget } from "./target.js";
 import { renderMatkul } from "./matkul.js";
 
 export function renderSemua() {
-  cekStreak();
   renderBeranda();
   renderHarian();
   renderProyek();
@@ -24,5 +24,5 @@ export function renderSemua() {
   const n = mendesak().length;
   b.hidden = !n;
   b.textContent = n;
-  $("#judul-hal").textContent = JUDUL_HALAMAN[location.hash] || "Beranda";
+  $("#judul-hal").textContent = JUDUL_HALAMAN[state.kembali] || "Beranda";
 }

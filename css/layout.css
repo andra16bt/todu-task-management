@@ -54,11 +54,15 @@ main {
 }
 .pagehead .muted { font-size: 14px; line-height: 20px; margin-top: 2px; }
 
-/* Layar (pindah lewat :target) */
+/* Layar aktif ditentukan atribut data-layar di .app (diatur js/router.js).
+   Sheet & dialog tetap memakai :target, jadi layar di belakangnya tidak hilang. */
 .screen { display: none; }
-.screen:target { display: block; }
-.app:not(:has(.screen:target)) #beranda { display: block; }
-#welcome:target {
+.app[data-layar="beranda"] #beranda,
+.app[data-layar="tugas"] #tugas,
+.app[data-layar="proyek"] #proyek,
+.app[data-layar="statistik"] #statistik,
+.app[data-layar="matkul"] #matkul { display: block; }
+.app[data-layar="welcome"] #welcome {
   display: grid;
   align-content: center;
   justify-items: center;
@@ -66,9 +70,13 @@ main {
   text-align: center;
   min-height: 100%;
 }
-.app:has(#welcome:target) .dock,
-.app:has(#welcome:target) .top,
-.app:has(#statistik:target) .addbar,
+.app[data-layar="welcome"] .dock,
+.app[data-layar="welcome"] .top { display: none; }
+
+/* Tombol Tambah Tugas: hanya di tab Tugas (Harian & Proyek), tersembunyi saat sheet terbuka */
+.dock .addbar { display: none; }
+.app[data-layar="tugas"] .addbar,
+.app[data-layar="proyek"] .addbar { display: flex; }
 .app:has(.sheet:target) .addbar { display: none; }
 .logo { width: 96px; height: 96px; }
 
@@ -81,6 +89,7 @@ main {
   padding: var(--sp-2) var(--sp-4) calc(var(--sp-3) + env(safe-area-inset-bottom));
 }
 .nav {
+  position: relative;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -103,16 +112,25 @@ main {
   font-size: 12px;
   line-height: 14px;
   font-weight: 700;
-  transition: background var(--dur-base) var(--ease);
+  transition: color var(--dur-base) var(--ease), transform var(--dur-fast) var(--ease);
 }
-.nav .i { width: 22px; height: 22px; }
-.app:not(:has(.screen:target)) .nav [href="#beranda"],
-.app:has(#tugas:target, #proyek:target) .nav [href="#tugas"],
-.app:has(#statistik:target) .nav [href="#statistik"],
-.app:has(#matkul:target) .nav [href="#matkul"] {
+.nav a:active { transform: scale(0.94); }
+.nav .i { width: 22px; height: 22px; transition: transform var(--dur-base) var(--ease); }
+/* Lingkaran hitam yang bergeser mengikuti menu aktif (--n = urutan menu, diatur router.js) */
+.nav::before {
+  content: "";
+  position: absolute;
+  top: var(--sp-1);
+  bottom: var(--sp-1);
+  left: var(--sp-1);
+  width: calc((100% - 20px) / 4);
+  border-radius: var(--r-pill);
   background: var(--ink);
-  color: var(--lime);
+  transform: translateX(calc(var(--n, 0) * (100% + var(--sp-1))));
 }
+.nav.siap::before { transition: transform 320ms var(--ease); }
+.nav a[aria-current="page"] { color: var(--lime); }
+.nav a[aria-current="page"] .i { transform: translateY(-1px) scale(1.1); }
 .badge {
   position: absolute;
   top: 2px;
