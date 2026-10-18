@@ -26,3 +26,15 @@ export const nomorHari = (s) => {
 
 // Nilai radio yang terpilih
 export const val = (n) => ($('input[name="' + n + '"]:checked') || {}).value || "";
+
+// "HH:MM" dari sebuah Date
+export const hhmm = (d) => p2(d.getHours()) + ":" + p2(d.getMinutes());
+
+// Deretan pilihan (radio berbentuk chip). arr: [[nilai, label, warnaTitik?], ...]
+export const opts = (name, arr, sel) =>
+  arr
+    .map(
+      ([v, l, c]) =>
+        `<label class="opt"><input type="radio" name="${name}" value="${esc(v)}"${v === sel ? " checked" : ""}><span>${c ? `<i class="dot" style="--c:${c}"></i>` : ""}${esc(l)}</span></label>`,
+    )
+    .join("");

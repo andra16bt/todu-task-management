@@ -109,6 +109,5 @@
 .stp .i { width: 14px; height: 14px; }
 .stp.ok { background: var(--lime); color: #3b4d00; }
 
-/* Mata kuliah */
-.row { display: flex; align-items: center; gap: var(--sp-3); min-height: 64px; padding: var(--sp-3) var(--sp-4); }
+/* Pembantu */
 .grow { flex: 1; min-width: 0; }

@@ -2,7 +2,7 @@
 import { state } from "./state.js";
 import { LAYAR } from "./config.js";
 import { $ } from "./utils.js";
-import { renderSemua } from "./views/index.js";
+import { renderSemua } from "./views/view-index.js";
 
 const URUTAN = LAYAR.map((h) => h.slice(1)); // urutan layar untuk arah geser
 let layarKini = null;

@@ -1,12 +1,13 @@
 /* Layar Mata Kuliah */
 import { state } from "../state.js";
 import { $, esc, ico } from "../utils.js";
-import { kepala, kosong } from "./komponen.js";
+import { kepala, kosong } from "./view-komponen.js";
 
 export function renderMatkul() {
   const aktif = state.tugas.filter((t) => t.status !== "selesai").length;
   $("#matkul").innerHTML =
     kepala(
+      "Matkul",
       "Mata Kuliah",
       `${state.matkul.length} mata kuliah aktif`,
       `<button class="btn btn-ink sm" data-act="tambah-mk">${ico("plus")}Tambah</button>`,

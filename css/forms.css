@@ -29,7 +29,7 @@ textarea.in { padding: var(--sp-3) var(--sp-4); min-height: 96px; resize: none; 
 .in::-webkit-date-and-time-value { text-align: left; }
 .err { font-size: 12px; font-weight: 700; font-style: normal; color: var(--err); margin: -8px 0 var(--sp-3); }
 .field .err { margin: 0; }
-#e-dl { margin: -12px 0 var(--sp-5); }
+#e-dl, #e-ag-waktu { margin: -12px 0 var(--sp-5); }
 .sheet .grid2 { margin-bottom: 0; }
 
 /* Pilihan chip */
@@ -63,3 +63,32 @@ textarea.in { padding: var(--sp-3) var(--sp-4); min-height: 96px; resize: none; 
 .addrow { display: flex; gap: var(--sp-2); }
 .addrow .btn { min-height: 52px; padding: 0 var(--sp-4); }
 .coret { text-decoration: line-through; color: var(--muted); }
+
+/* Tombol "+" di samping pilihan mata kuliah */
+.opt-add {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 0;
+  background: var(--ink);
+  color: var(--lime);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.opt-add:active { transform: scale(0.92); }
+.opt-add .i { width: 20px; height: 20px; }
+
+/* Daftar mata kuliah di sheet "Mata Kuliah Baru" */
+.mk-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 56px;
+  margin-bottom: var(--sp-2);
+  padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4);
+  background: var(--low);
+  border-radius: var(--r-field);
+}

@@ -27,11 +27,19 @@ export const STATUS = [
   ["selesai", "Selesai"],
 ];
 export const NAMA_HARI = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
-export const LAYAR = ["#beranda", "#tugas", "#proyek", "#statistik", "#matkul"];
-export const JUDUL_HALAMAN = {
-  "#beranda": "Beranda",
-  "#tugas": "Tugas",
-  "#proyek": "Tugas",
-  "#statistik": "Target",
-  "#matkul": "Mata Kuliah",
-};
+export const LAYAR = ["#beranda", "#tugas", "#proyek", "#agenda", "#statistik"];
+
+// Agenda: kategori berwarna (id, nama, warna) & pilihan pengingat
+export const KATEGORI = [
+  ["wawancara", "Wawancara", "#3B8EEA"],
+  ["panitia", "Panitia", "#8B5CF6"],
+  ["organisasi", "Organisasi", "#E8743B"],
+  ["pribadi", "Pribadi", "#EC4899"],
+  ["lainnya", "Lainnya", "#1FA37A"],
+];
+export const INGAT = [
+  ["none", "Tanpa"],
+  ["1jam", "1 jam sebelum"],
+  ["1hari", "1 hari sebelum"],
+];
+export const INGAT_MS = { "1jam": 36e5, "1hari": 864e5 };

@@ -35,9 +35,8 @@
 .screen.masuk .ck.on { animation: pop 400ms var(--ease) 300ms backwards; }
 
 /* ---------- 2. Umpan balik sentuhan ---------- */
-.tcard, .sum, .proj, .banner { transition: transform var(--dur-fast) var(--ease); }
+.tcard, .proj, .banner { transition: transform var(--dur-fast) var(--ease); }
 .tcard:active:not(:has(.check:active)),
-.sum:active,
 .proj:active,
 .banner:active { transform: scale(0.98); }
 .opt span { transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }

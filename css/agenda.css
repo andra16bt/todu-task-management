@@ -1,0 +1,20 @@
+/* Agenda: kartu kegiatan (memakai dasar .tcard) */
+[data-act="edit-agenda"] { cursor: pointer; }
+.tcard.lewat { opacity: 0.65; }
+.mk .i { width: 16px; height: 16px; }
+.am { font-size: 12px; font-weight: 800; color: var(--lime); white-space: nowrap; }
+.lite .am { color: var(--olive); }
+/* Catatan agenda: maksimal 3 baris, baris baru dipertahankan */
+.acat {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--on-dark-muted);
+  white-space: pre-line;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3; /* versi standar, untuk kompatibilitas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.lite .acat { color: var(--muted); }
+.sech h2 .i { color: var(--olive); }

@@ -1,12 +1,13 @@
 /* Aksi bersama: simpan semua data lalu render ulang */
-import { state, simpanTugas, simpanMatkul } from "./state.js";
+import { state, simpanTugas, simpanMatkul, simpanAgenda } from "./state.js";
 import { setStatus } from "./rules.js";
 import { toast } from "./ui.js";
-import { renderSemua } from "./views/index.js";
+import { renderSemua } from "./views/view-index.js";
 
 export function semua() {
   simpanTugas();
   simpanMatkul();
+  simpanAgenda();
   renderSemua();
 }
 

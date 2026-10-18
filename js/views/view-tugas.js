@@ -2,7 +2,7 @@
 import { state } from "../state.js";
 import { $, ico, tgl } from "../utils.js";
 import { terlewat, byDl, dlJam } from "../rules.js";
-import { tabs, kartu, kosong } from "./komponen.js";
+import { tabs, kartu, kosong } from "./view-komponen.js";
 
 // Satu baris timeline
 function baris(t) {

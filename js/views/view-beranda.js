@@ -3,7 +3,8 @@ import { state } from "../state.js";
 import { NAMA_HARI } from "../config.js";
 import { $, esc, ico, tgl } from "../utils.js";
 import { mendesak, terlewat, byDl, rangkaianTepatWaktu, tugasPekan, senin } from "../rules.js";
-import { kepala, kartu, kosong } from "./komponen.js";
+import { byMulai, lewat, pengingatAktif, mundurAgenda } from "../aturan-agenda.js";
+import { kepala, kartu, kartuAgenda, kosong } from "./view-komponen.js";
 
 export function renderBeranda() {
   const now = new Date(),
@@ -36,8 +37,22 @@ export function renderBeranda() {
     : "";
   const r = rangkaianTepatWaktu();
 
+  // Pengingat agenda + agenda terdekat
+  const ing = pengingatAktif(),
+    banAg = ing.length
+      ? `<a class="banner" href="#agenda">${ico("bell")}<span>${ing.length === 1 ? `${esc(ing[0].judul)} &middot; ${mundurAgenda(ing[0])}` : `${ing.length} agenda segera dimulai`}</span>${ico("next")}</a>`
+      : "";
+  const agDekat = state.agenda
+    .filter((a) => !lewat(a))
+    .sort(byMulai)
+    .slice(0, 2);
+  const secAg = agDekat.length
+    ? `<div class="sech"><h2>${ico("bookmark")}Agenda Terdekat</h2><a href="#agenda" class="lnk">Lihat Semua</a></div>${agDekat.map((a) => kartuAgenda(a, true)).join("")}`
+    : "";
+
   $("#beranda").innerHTML =
     kepala(
+      "Beranda",
       `Halo, ${esc(state.profil.nama)}`,
       now.toLocaleDateString("id-ID", {
         weekday: "long",
@@ -47,10 +62,12 @@ export function renderBeranda() {
       }),
     ) +
     ban +
+    banAg +
     `<div class="card big"><div class="wk-h"><h2>Progres Pekan Ini</h2><span class="pill">${selesaiP}/${pekan.length} Tugas</span></div><div class="week">${week}</div>${barP}</div>
-  <div class="grid2"><a class="card sum" href="#matkul"><div class="top2"><span class="ic">${ico("book")}</span>${ico("arrow-ne")}</div><div><p class="num">${state.matkul.length}</p><p class="muted"><b>Mata Kuliah Aktif</b></p></div></a>
+  <div class="grid2"><div class="card sum"><div class="top2"><span class="ic">${ico("book")}</span></div><div><p class="num">${state.matkul.length}</p><p class="muted"><b>Mata Kuliah Aktif</b></p></div></div>
   <div class="card card-dark sum notch"><div class="top2"><span class="ic">${ico("flame")}</span></div><div><p class="num lime">${r} <small>Tugas</small></p><p class="muted-d">Tepat waktu berturut-turut</p></div></div></div>
   <div class="sech"><h2 class="al">${ico("alarm")}Segera Jatuh Tempo</h2><a href="#tugas" class="lnk">Lihat Semua</a></div>
   ${dekat.map((t) => kartu(t, true)).join("") || kosong("Belum ada tugas. Ketuk Tambah Tugas untuk memulai.")}
+  ${secAg}
   <div class="tip"><span class="ic">${ico("school")}</span><div><h3>Jaga Ritme Belajarmu</h3><p class="muted">${r ? `${r} tugas berturut-turut selesai tepat waktu. Pertahankan!` : "Selesaikan tugas sebelum deadline untuk memulai rangkaianmu."}</p></div></div>`;
 }

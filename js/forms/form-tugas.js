@@ -1,5 +1,5 @@
 /* Form tambah/ubah tugas (bottom sheet #sheet) */
-import { $, esc, ico, uid, tgl, val } from "../utils.js";
+import { $, esc, ico, uid, tgl, val, opts } from "../utils.js";
 import { TIPE, PRIO, STATUS } from "../config.js";
 import { state } from "../state.js";
 import { dlJam, setStatus } from "../rules.js";
@@ -10,22 +10,19 @@ import { konfirmasi } from "../dialog.js";
 let edit = null; // tugas yang sedang diubah (null = tugas baru)
 let lk = []; // langkah-langkah proyek pada form
 
-const opts = (name, arr, sel) =>
-  arr
-    .map(
-      ([v, l, c]) =>
-        `<label class="opt"><input type="radio" name="${name}" value="${esc(v)}"${v === sel ? " checked" : ""}><span>${c ? `<i class="dot" style="--c:${c}"></i>` : ""}${esc(l)}</span></label>`,
-    )
-    .join("");
-
-function rMkOpts(sel) {
-  $("#o-mk").innerHTML = opts(
-    "mk",
-    state.matkul.map((m) => [m.id, m.nama, m.warna]),
-    sel,
-  );
+// Gambar ulang pilihan mata kuliah + tombol "+" (tanpa argumen: pertahankan pilihan saat ini)
+export function rMkOpts(sel = val("mk")) {
+  $("#o-mk").innerHTML =
+    opts(
+      "mk",
+      state.matkul.map((m) => [m.id, m.nama, m.warna]),
+      sel,
+    ) +
+    `<button type="button" class="opt-add" data-act="tambah-mk" aria-label="Tambah mata kuliah baru">${ico("plus")}</button>`;
   $("#mk-kosong").hidden = state.matkul.length > 0; // petunjuk jika belum ada mata kuliah
 }
+
+export const tugasDiedit = () => edit; // tugas yang sedang dibuka di form (null = tugas baru)
 
 const aturLangkah = () => ($("#g-langkah").hidden = val("tipe") !== "proyek"); // langkah hanya untuk Proyek
 

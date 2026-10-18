@@ -2,7 +2,7 @@
 import { state } from "../state.js";
 import { $, esc, ico } from "../utils.js";
 import { byDl, mundur, persen } from "../rules.js";
-import { tabs, kosong, mkNama, mkWarna } from "./komponen.js";
+import { tabs, kosong, mkNama, mkWarna } from "./view-komponen.js";
 
 export function renderProyek() {
   const ps = state.tugas.filter((t) => t.tipe === "proyek").sort(byDl);

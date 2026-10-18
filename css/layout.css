@@ -1,4 +1,4 @@
-/* Kerangka aplikasi: header, area isi, perpindahan layar, dock & navigasi bawah */
+/* Kerangka aplikasi: area isi, perpindahan layar, dock & navigasi bawah */
 .app {
   position: relative;
   display: flex;
@@ -8,42 +8,12 @@
   margin: 0 auto;
   overflow: hidden;
 }
-.top {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: calc(64px + env(safe-area-inset-top));
-  padding: env(safe-area-inset-top) var(--sp-4) 0;
-}
-.brand { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; }
-.brand svg { width: 32px; height: 32px; flex: none; }
-.brand b { display: block; font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: -0.01em; }
-.brand span {
-  display: block;
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--olive);
-}
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: #fff;
-  display: grid;
-  place-items: center;
-}
-.avatar .i { width: 18px; height: 18px; }
 main {
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: var(--sp-2) var(--sp-4) var(--sp-4);
+  padding: calc(var(--sp-4) + env(safe-area-inset-top)) var(--sp-4) var(--sp-4);
 }
 .pagehead {
   display: flex;
@@ -53,6 +23,17 @@ main {
   margin: var(--sp-2) 0 var(--sp-5);
 }
 .pagehead .muted { font-size: 14px; line-height: 20px; margin-top: 2px; }
+/* Penanda tab aktif di atas judul halaman */
+.eyebrow {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
 
 /* Layar aktif ditentukan atribut data-layar di .app (diatur js/router.js).
    Sheet & dialog tetap memakai :target, jadi layar di belakangnya tidak hilang. */
@@ -60,8 +41,8 @@ main {
 .app[data-layar="beranda"] #beranda,
 .app[data-layar="tugas"] #tugas,
 .app[data-layar="proyek"] #proyek,
-.app[data-layar="statistik"] #statistik,
-.app[data-layar="matkul"] #matkul { display: block; }
+.app[data-layar="agenda"] #agenda,
+.app[data-layar="statistik"] #statistik { display: block; }
 .app[data-layar="welcome"] #welcome {
   display: grid;
   align-content: center;
@@ -70,13 +51,13 @@ main {
   text-align: center;
   min-height: 100%;
 }
-.app[data-layar="welcome"] .dock,
-.app[data-layar="welcome"] .top { display: none; }
+.app[data-layar="welcome"] .dock { display: none; }
 
-/* Tombol Tambah Tugas: hanya di tab Tugas (Harian & Proyek), tersembunyi saat sheet terbuka */
+/* Tombol tambah: hanya di tab terkait (Tugas/Proyek atau Agenda), tersembunyi saat sheet terbuka */
 .dock .addbar { display: none; }
-.app[data-layar="tugas"] .addbar,
-.app[data-layar="proyek"] .addbar { display: flex; }
+.app[data-layar="tugas"] .addbar-tugas,
+.app[data-layar="proyek"] .addbar-tugas,
+.app[data-layar="agenda"] .addbar-agenda { display: flex; }
 .app:has(.sheet:target) .addbar { display: none; }
 .logo { width: 96px; height: 96px; }
 
