@@ -9,13 +9,27 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Todu" />
     <title>Todu</title>
+    <!-- Tema dipasang sebelum halaman digambar agar tidak berkedip -->
+    <script>
+      try {
+        var t = JSON.parse(localStorage.getItem("todukampus:v1:tema") || '"otomatis"');
+        var g = t === "gelap" || (t === "otomatis" && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.dataset.tema = g ? "gelap" : "terang";
+      } catch (e) {}
+    </script>
+    <!-- Ikon: favicon browser, ikon layar utama iPhone, dan manifest -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap"
       rel="stylesheet"
     />
-    <!-- Urutan penting: token -> dasar -> kerangka -> komponen -> form -> overlay -> animasi -->
+    <!-- Urutan penting: token -> dasar -> kerangka -> komponen -> form -> profil -> overlay -> animasi -> tema (tema gelap paling akhir) -->
     <link rel="stylesheet" href="css/tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/layout.css" />
@@ -24,10 +38,22 @@
     <link rel="stylesheet" href="css/agenda.css" />
     <link rel="stylesheet" href="css/controls.css" />
     <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/profil.css" />
     <link rel="stylesheet" href="css/overlays.css" />
     <link rel="stylesheet" href="css/animasi.css" />
+    <link rel="stylesheet" href="css/tema.css" />
   </head>
   <body>
+    <!-- Animasi pembuka: huruf naik bergantian, lalu centang membal. Hilang sendiri lewat CSS; ketuk untuk melewati (tanpa menunggu JS dimuat). -->
+    <div class="splash" id="splash" aria-hidden="true" onpointerdown="this.classList.add('lewati')">
+      <svg viewBox="0 0 1314 324">
+        <path class="h" fill-rule="evenodd" d="M102.3 314.8C101.9 314.1 101.3 259.7 101.0 194.0L100.5 74.5L51.6 74.2C17.2 74.1 2.3 73.6 1.3 72.9C0.2 71.9 0.0 65.9 0.2 41.1C0.5 11.3 0.6 10.5 2.6 9.5C4.0 8.8 47.8 8.5 136.9 8.5C267.9 8.5 269.2 8.5 270.6 10.5C272.3 12.7 272.3 71.0 270.7 72.7C270.2 73.1 248.2 73.7 221.7 74.0L173.5 74.5L173.0 194.3C172.6 299.3 172.3 314.2 171.0 315.0C168.6 316.5 103.3 316.3 102.3 314.8Z" />
+        <path class="h" fill-rule="evenodd" d="M423.0 323.0C350.2 315.7 295.0 267.1 279.8 197.0C276.7 182.6 276.5 148.8 279.4 133.5C296.6 42.4 386.2 -16.1 476.9 4.4C533.4 17.3 575.6 55.5 593.4 109.8C619.3 189.0 586.5 270.9 514.5 306.7C488.2 319.8 453.3 326.0 423.0 323.0ZM458.8 248.0C499.9 238.1 526.7 199.8 523.6 155.3C520.8 114.5 494.7 82.4 458.3 74.8C418.9 66.7 382.8 83.7 365.6 118.5C357.8 134.3 356.5 140.5 356.6 162.5C356.6 183.5 358.0 190.1 365.5 205.0C382.5 238.7 421.8 256.9 458.8 248.0Z" />
+        <path class="h" fill-rule="evenodd" d="M638.6 314.5C636.0 311.9 636.1 14.3 638.8 11.1L640.5 8.9L703.5 8.5C767.4 8.1 793.0 8.8 807.5 11.4C875.9 23.6 923.8 70.6 936.2 137.5C938.4 149.6 937.8 182.4 935.1 195.0C928.4 226.6 917.0 248.0 895.5 269.6C872.5 292.8 843.4 307.7 809.5 313.7C795.6 316.2 641.0 316.9 638.6 314.5ZM791.0 246.4C824.9 240.0 849.1 218.7 858.2 187.3C861.6 175.8 861.5 149.2 858.2 137.5C848.3 103.2 820.6 81.2 782.0 77.0C771.1 75.9 712.1 76.1 710.2 77.3C708.9 78.2 708.3 246.0 709.7 247.3C711.2 248.8 782.5 248.1 791.0 246.4Z" />
+        <path class="h" fill-rule="evenodd" d="M1118.5 320.9C1086.1 319.3 1064.3 314.4 1041.4 303.6C1002.0 284.9 979.4 255.9 968.2 209.5L965.5 198.5L965.2 105.4C964.9 12.4 964.9 12.4 967.0 10.5C969.0 8.7 971.2 8.6 1003.3 8.7C1039.8 8.7 1041.7 8.9 1042.5 12.3C1042.8 13.5 1043.2 53.4 1043.3 101.0C1043.6 196.7 1043.4 193.0 1050.3 208.8C1062.0 235.9 1086.2 252.0 1121.2 256.1C1180.3 262.9 1225.5 230.9 1227.6 180.7C1228.4 162.4 1226.7 165.4 1248.8 144.4C1259.6 134.2 1273.4 121.0 1279.4 115.1C1285.4 109.3 1291.5 103.7 1292.9 102.8C1296.1 100.6 1303.1 100.5 1307.0 102.5C1313.2 105.7 1313.2 105.8 1312.8 153.4C1312.3 196.0 1312.3 196.7 1309.6 209.0C1294.7 276.7 1240.2 317.3 1160.0 320.5C1153.1 320.8 1144.1 321.2 1140.0 321.3C1135.9 321.5 1126.2 321.3 1118.5 320.9Z" />
+        <path class="ck" d="M1136.7 180.6C1119.5 164.3 1094.1 138.5 1092.3 135.5C1088.7 129.6 1091.8 117.2 1098.5 110.5C1110.3 98.7 1128.9 97.2 1144.4 106.7C1149.1 109.6 1150.7 110.1 1152.6 109.4C1154.0 108.9 1174.0 90.1 1197.1 67.5C1257.0 9.2 1257.3 9.0 1292.1 9.0L1309.9 9.0L1311.9 11.6C1313.8 14.1 1314.0 15.6 1314.0 30.9C1314.0 42.2 1313.6 48.2 1312.7 49.8C1312.1 51.0 1299.2 63.7 1284.2 78.0C1269.2 92.3 1236.4 123.9 1211.3 148.2C1186.3 172.6 1164.8 193.0 1163.6 193.7C1162.5 194.4 1159.3 194.9 1156.7 195.0L1151.9 195.0L1136.7 180.6Z" />
+      </svg>
+    </div>
     <div class="app">
       <main>
         <!-- Isi layar-layar ini dibuat oleh js/views/ -->
@@ -35,20 +61,83 @@
         <section class="screen" id="tugas"></section>
         <section class="screen" id="proyek"></section>
         <section class="screen" id="agenda"></section>
-        <section class="screen" id="statistik"></section>
+
+        <!-- ===== PROFIL (statis: isinya diisi js/profil.js saat tab dibuka) ===== -->
+        <section class="screen" id="profil">
+          <div class="pagehead">
+            <div>
+              <span class="eyebrow">Profil</span>
+              <h1>Pengaturan</h1>
+              <p class="muted">Atur Todu sesuai gayamu</p>
+            </div>
+          </div>
+
+          <div class="card card-dark notch prof">
+            <span class="pf-avatar" id="pf-avatar" aria-hidden="true">?</span>
+            <div class="grow">
+              <h2 id="pf-nama"></h2>
+              <p class="muted-d">Nama panggilanmu di Todu</p>
+            </div>
+          </div>
+
+          <form class="card" id="f-profil" novalidate>
+            <label class="field"
+              ><span>Nama panggilan</span
+              ><input
+                class="in"
+                id="f-pf-nama"
+                maxlength="30"
+                autocomplete="given-name"
+                aria-describedby="e-pf-nama"
+              /><em class="err" id="e-pf-nama" hidden>Nama tidak boleh kosong.</em></label
+            >
+            <button class="btn btn-ink w100" type="submit">Simpan nama</button>
+          </form>
+
+          <div class="card">
+            <fieldset class="field">
+              <legend>Tema</legend>
+              <div class="opts" id="o-tema"></div>
+            </fieldset>
+          </div>
+
+          <h2 class="sec">Data</h2>
+          <div class="menu">
+            <button type="button" class="menu-row" data-act="ekspor">
+              <span class="ic"><svg class="i"><use href="assets/icons.svg#i-download" /></svg></span>
+              <span class="grow"><b>Ekspor cadangan</b><span class="muted">Simpan semua datamu ke sebuah file</span></span>
+              <svg class="i"><use href="assets/icons.svg#i-next" /></svg>
+            </button>
+            <button type="button" class="menu-row" data-act="impor">
+              <span class="ic"><svg class="i"><use href="assets/icons.svg#i-upload" /></svg></span>
+              <span class="grow"><b>Pulihkan cadangan</b><span class="muted">Ambil data dari file cadangan</span></span>
+              <svg class="i"><use href="assets/icons.svg#i-next" /></svg>
+            </button>
+            <button type="button" class="menu-row" data-act="bersih">
+              <span class="ic"><svg class="i"><use href="assets/icons.svg#i-check" /></svg></span>
+              <span class="grow"><b>Bersihkan tugas selesai</b><span class="muted">Hapus tugas yang sudah dicentang</span></span>
+              <svg class="i"><use href="assets/icons.svg#i-next" /></svg>
+            </button>
+            <button type="button" class="menu-row bahaya" data-act="reset">
+              <span class="ic"><svg class="i"><use href="assets/icons.svg#i-trash" /></svg></span>
+              <span class="grow"><b>Hapus semua data</b><span class="muted">Tugas, agenda, dan mata kuliah</span></span>
+              <svg class="i"><use href="assets/icons.svg#i-next" /></svg>
+            </button>
+          </div>
+          <input type="file" id="in-impor" accept="application/json,.json" hidden />
+
+          <div class="about">
+            <svg class="logo-wm" role="img" aria-label="Todu"><use href="assets/icons.svg#i-logo" /></svg>
+            <p class="muted">Versi 1.0</p>
+            <p class="muted">Data tersimpan di perangkat ini.</p>
+          </div>
+        </section>
 
         <!-- ===== WELCOME (tampil sekali, pertama kali buka) ===== -->
         <section class="screen" id="welcome">
-          <svg class="logo" viewBox="0 0 96 96" aria-hidden="true">
-            <path style="fill: var(--ink)" d="M48 48H0A48 48 0 0148 0z" />
-            <path style="fill: var(--mint)" d="M48 48V0a48 48 0 0148 48z" />
-            <path style="fill: var(--ink)" d="M48 48h48a48 48 0 01-48 48z" />
-            <path style="fill: var(--olive)" d="M48 48v48A48 48 0 010 48z" />
-          </svg>
-          <div>
-            <h1 class="xl">Todu</h1>
-            <p class="muted-l">Tugas kuliah, tertata rapi</p>
-          </div>
+          <svg class="logo-wm lg" role="img" aria-label="Todu"><use href="assets/icons.svg#i-logo" /></svg>
+          <h1 class="sr-only">Todu</h1>
+          <p class="muted-l">Tugas kuliah, tertata rapi</p>
           <label class="field w100"
             ><span>Siapa namamu?</span
             ><input
@@ -79,7 +168,7 @@
           <a href="#beranda"><svg class="i"><use href="assets/icons.svg#i-home" /></svg>Beranda</a>
           <a href="#tugas"><svg class="i"><use href="assets/icons.svg#i-list" /></svg>Tugas</a>
           <a href="#agenda"><svg class="i"><use href="assets/icons.svg#i-bookmark" /></svg>Agenda</a>
-          <a href="#statistik"><svg class="i"><use href="assets/icons.svg#i-target" /></svg>Target</a>
+          <a href="#profil"><svg class="i"><use href="assets/icons.svg#i-person" /></svg>Profil</a>
         </nav>
       </div>
 
@@ -126,8 +215,8 @@
             </div>
             <em class="err" id="e-dl" hidden>Tanggal dan jam wajib diisi.</em>
             <fieldset class="field">
-              <legend>Prioritas</legend>
-              <div class="opts" id="o-prio"></div>
+              <legend>Pengerjaan</legend>
+              <div class="opts" id="o-jenis"></div>
             </fieldset>
             <fieldset class="field" id="g-status" hidden>
               <legend>Status</legend>

@@ -50,7 +50,7 @@ export function mintaHapusMk(id) {
       // jika tugas yang sedang dibuka di form ikut terhapus, tutup form tugas
       return dibuka && dibuka.mataKuliahId === id ? state.kembali : "#sheet-mk";
     },
-    "#sheet-mk",
+    { ke: "#sheet-mk" },
   );
 }
 

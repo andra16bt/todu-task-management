@@ -1,0 +1,15 @@
+{
+  "name": "Todu",
+  "short_name": "Todu",
+  "description": "Tugas dan agenda kuliah, tertata rapi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2fee2",
+  "theme_color": "#f2fee2",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

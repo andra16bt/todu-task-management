@@ -29,6 +29,7 @@ button, .btn, .icon-btn, .nav a { touch-action: manipulation; font: inherit; }
 .muted-d { font-size: 12px; line-height: 16px; color: var(--on-dark-muted); }
 .muted-l { font-size: 14px; color: var(--muted); }
 .w100 { width: 100%; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; }
 .card-dark :focus-visible { outline-color: var(--lime); }
 

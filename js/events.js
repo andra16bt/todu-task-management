@@ -2,6 +2,7 @@
 import { state } from "./state.js";
 import { toggleSelesai } from "./actions.js";
 import { tujuanDialog } from "./dialog.js";
+import { eksporData, pilihFileImpor, bersihkanSelesai, hapusSemua } from "./profil.js";
 import {
   bukaForm,
   tambahLangkah,
@@ -48,6 +49,14 @@ export function initEvents() {
         return;
       case "minta-hapus-agenda":
         return mintaHapusAgenda();
+      case "ekspor":
+        return eksporData();
+      case "impor":
+        return pilihFileImpor();
+      case "bersih":
+        return bersihkanSelesai();
+      case "reset":
+        return hapusSemua();
       case "tambah-mk":
         bukaMk();
         location.hash = "#sheet-mk";

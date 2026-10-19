@@ -35,9 +35,10 @@
 .screen.masuk .ck.on { animation: pop 400ms var(--ease) 300ms backwards; }
 
 /* ---------- 2. Umpan balik sentuhan ---------- */
-.tcard, .proj, .banner { transition: transform var(--dur-fast) var(--ease); }
+.tcard, .proj, .banner, a.sum { transition: transform var(--dur-fast) var(--ease); }
 .tcard:active:not(:has(.check:active)),
 .proj:active,
+a.sum:active,
 .banner:active { transform: scale(0.98); }
 .opt span { transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
 .opt:active span { transform: scale(0.95); }
@@ -49,3 +50,36 @@
 .toast:not([hidden]) { animation: toast-masuk var(--dur-base) var(--ease); }
 .sheet:target { animation: pudar var(--dur-base) var(--ease); } /* latar gelap memudar masuk */
 .banner > .i:first-child { animation: denyut 1.8s ease-in-out infinite; }
+
+/* ---------- 4. Animasi pembuka (#splash di index.html) ----------
+   Urutan: huruf T-O-D-U naik bergantian (0-0,52 dtk) -> centang membal (0,40-0,85 dtk)
+   -> logo utuh bertahan sebentar -> layar memudar (1,2-1,45 dtk).
+   Penutupan murni CSS, jadi tidak bisa macet. */
+@keyframes splash-naik { from { opacity: 0; transform: translateY(70px); } }
+@keyframes splash-pop {
+  0% { opacity: 0; transform: scale(0.2) rotate(-14deg); }
+  60% { opacity: 1; transform: scale(1.2) rotate(3deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes splash-keluar { to { opacity: 0; visibility: hidden; } }
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  animation: splash-keluar 250ms ease 1200ms forwards;
+}
+.splash.lewati { animation: none; opacity: 0; transition: opacity 150ms; pointer-events: none; }
+.splash svg { width: min(260px, 66vw); aspect-ratio: 1314 / 324; overflow: visible; }
+.splash .h { fill: var(--text); animation: splash-naik 340ms var(--ease) backwards; }
+.splash .h:nth-child(2) { animation-delay: 60ms; }
+.splash .h:nth-child(3) { animation-delay: 120ms; }
+.splash .h:nth-child(4) { animation-delay: 180ms; }
+.splash .ck {
+  fill: var(--olive);
+  transform-box: fill-box;
+  transform-origin: 40% 70%;
+  animation: splash-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) 400ms backwards;
+}

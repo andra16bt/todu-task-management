@@ -1,0 +1,45 @@
+/* Layar Profil & logo Todu */
+.logo-wm { width: 200px; aspect-ratio: 1314 / 324; color: var(--text); flex: none; }
+.logo-wm.lg { width: min(260px, 70%); }
+
+.prof { display: flex; align-items: center; gap: var(--sp-4); }
+.pf-avatar {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--lime);
+  color: #151e0e;
+  font-size: 24px;
+  font-weight: 800;
+}
+.prof h2 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card .field:last-child { margin-bottom: 0; }
+
+/* Daftar menu (baris yang bisa diketuk) */
+.menu { display: grid; gap: var(--sp-2); }
+.menu-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: 60px;
+  padding: var(--sp-2) var(--sp-4) var(--sp-2) var(--sp-3);
+  border: 0;
+  border-radius: var(--r-field);
+  background: var(--low);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.menu-row:active { transform: scale(0.98); }
+.menu-row .muted { display: block; }
+.menu-row > .i:last-child { color: var(--muted); }
+.menu-row.bahaya b { color: var(--err); }
+.menu-row.bahaya .ic { background: var(--err-bg); color: var(--err); }
+
+.about { display: grid; justify-items: center; gap: var(--sp-1); margin-top: var(--sp-6); text-align: center; }
+.about .logo-wm { width: 120px; margin-bottom: var(--sp-2); }

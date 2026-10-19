@@ -6,6 +6,7 @@ export const state = {
   tugas: muat("tugas", []),
   matkul: muat("matakuliah", []),
   agenda: muat("agenda", []),
+  tema: muat("tema", "otomatis"), // otomatis | terang | gelap
   kembali: "#beranda", // layar terakhir sebelum sheet/dialog dibuka
 };
 

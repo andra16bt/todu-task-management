@@ -1,0 +1,50 @@
+/* Tema gelap. Aktif saat <html data-tema="gelap"> (diatur js/tema.js).
+   Tombol dan penanda yang hitam di tema terang berubah menjadi lime di tema gelap. */
+:root[data-tema="gelap"] {
+  color-scheme: dark; /* kontrol bawaan (kalender, scrollbar) ikut gelap */
+  --surface: #0e120d;
+  --low: #161b14;
+  --mid: #1c2219;
+  --high: #232a20;
+  --highest: #2b3427;
+  --dark: #273022;
+  --white: #1f261c;
+  --text: #e8f2da;
+  --muted: #a3ae9a;
+  --olive: #b4d35e;
+  --err: #ff7b72;
+  --err-bg: #4a1f1c;
+}
+
+/* Elemen yang hitam -> lime */
+[data-tema="gelap"] .btn-ink,
+[data-tema="gelap"] .nav::before,
+[data-tema="gelap"] .tabs [aria-selected="true"],
+[data-tema="gelap"] .banner,
+[data-tema="gelap"] .day.today,
+[data-tema="gelap"] .chip.ink,
+[data-tema="gelap"] .opt input:checked + span,
+[data-tema="gelap"] .opt-add,
+[data-tema="gelap"] .toast { background: var(--lime); color: #10140f; }
+[data-tema="gelap"] .btn-ink .i,
+[data-tema="gelap"] .nav a[aria-current="page"] { color: #10140f; }
+[data-tema="gelap"] .today .ck { background: #10140f; color: var(--lime); }
+[data-tema="gelap"] .btn-white { color: var(--text); }
+[data-tema="gelap"] .in:focus { border-color: var(--lime); }
+
+/* Isian hijau zaitun: ikon gelap agar terbaca */
+[data-tema="gelap"] .chip.prog,
+[data-tema="gelap"] .ck.on,
+[data-tema="gelap"] .done .check,
+[data-tema="gelap"] .sheet .check[aria-checked="true"] { color: #10140f; }
+
+/* Warna yang tadinya tertulis langsung */
+[data-tema="gelap"] .day,
+[data-tema="gelap"] .tabs { background: rgba(43, 52, 39, 0.6); }
+[data-tema="gelap"] .ck::after,
+[data-tema="gelap"] .grip { background: #3a4436; }
+[data-tema="gelap"] .tl li::before { background: rgba(163, 174, 154, 0.25); }
+[data-tema="gelap"] .tdot { background: #5d6659; }
+[data-tema="gelap"] .badge { color: #2b0a08; }
+[data-tema="gelap"] .sw input:checked + span { outline-color: rgba(255, 255, 255, 0.35); }
+[data-tema="gelap"] .sheet { background: rgba(0, 0, 0, 0.6); }

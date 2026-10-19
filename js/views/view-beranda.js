@@ -35,7 +35,8 @@ export function renderBeranda() {
   const ban = n.length
     ? `<a class="banner" href="#tugas">${ico("bolt")}<span>${n.length} tugas ${n.some(terlewat) ? "mendesak, ada yang terlambat" : "jatuh tempo dalam 24 jam"}</span>${ico("next")}</a>`
     : "";
-  const r = rangkaianTepatWaktu();
+  const r = rangkaianTepatWaktu(),
+    belum = state.tugas.filter((t) => t.status !== "selesai").length;
 
   // Pengingat agenda + agenda terdekat
   const ing = pengingatAktif(),
@@ -64,7 +65,7 @@ export function renderBeranda() {
     ban +
     banAg +
     `<div class="card big"><div class="wk-h"><h2>Progres Pekan Ini</h2><span class="pill">${selesaiP}/${pekan.length} Tugas</span></div><div class="week">${week}</div>${barP}</div>
-  <div class="grid2"><div class="card sum"><div class="top2"><span class="ic">${ico("book")}</span></div><div><p class="num">${state.matkul.length}</p><p class="muted"><b>Mata Kuliah Aktif</b></p></div></div>
+  <div class="grid2"><a class="card sum" href="#tugas"><div class="top2"><span class="ic">${ico("list")}</span>${ico("arrow-ne")}</div><div><p class="num">${belum}</p><p class="muted"><b>Tugas Belum Selesai</b></p></div></a>
   <div class="card card-dark sum notch"><div class="top2"><span class="ic">${ico("flame")}</span></div><div><p class="num lime">${r} <small>Tugas</small></p><p class="muted-d">Tepat waktu berturut-turut</p></div></div></div>
   <div class="sech"><h2 class="al">${ico("alarm")}Segera Jatuh Tempo</h2><a href="#tugas" class="lnk">Lihat Semua</a></div>
   ${dekat.map((t) => kartu(t, true)).join("") || kosong("Belum ada tugas. Ketuk Tambah Tugas untuk memulai.")}

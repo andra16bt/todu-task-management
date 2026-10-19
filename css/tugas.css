@@ -26,9 +26,7 @@
 .chip.prog { background: var(--olive); color: #fff; }
 .chip.ink { background: var(--ink); color: var(--lime); }
 .chip.pr { background: rgba(219, 231, 204, 0.2); color: var(--on-dark); }
-.chip.pr.tinggi { background: var(--err); color: #fff; }
 .lite .chip.lime, .lite .chip.pr { background: var(--mid); color: var(--muted); }
-.lite .chip.pr.tinggi { background: var(--err); color: #fff; }
 
 /* Centang bulat */
 .check {
@@ -108,6 +106,20 @@
 }
 .stp .i { width: 14px; height: 14px; }
 .stp.ok { background: var(--lime); color: #3b4d00; }
+
+/* Catatan/keterangan pada kartu (tugas & agenda): maksimal 3 baris, baris baru dipertahankan */
+.cat {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--on-dark-muted);
+  white-space: pre-line;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.lite .cat, .done .cat { color: var(--muted); }
 
 /* Pembantu */
 .grow { flex: 1; min-width: 0; }

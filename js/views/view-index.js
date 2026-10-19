@@ -6,7 +6,6 @@ import { renderBeranda } from "./view-beranda.js";
 import { renderHarian } from "./view-tugas.js";
 import { renderProyek } from "./view-proyek.js";
 import { renderAgenda } from "./view-agenda.js";
-import { renderTarget } from "./view-target.js";
 
 // Lencana angka merah di menu (disembunyikan jika 0)
 function lencana(href, n) {
@@ -25,7 +24,6 @@ export function renderSemua() {
   renderHarian();
   renderProyek();
   renderAgenda();
-  renderTarget();
   lencana("#tugas", mendesak().length);
   lencana("#agenda", pengingatAktif().length);
 }

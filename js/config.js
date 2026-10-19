@@ -14,12 +14,17 @@ export const WARNA = [
 export const TIPE = [
   ["tugas", "Tugas"],
   ["ujian", "Ujian"],
+  ["quiz", "Quiz"],
   ["proyek", "Proyek"],
 ];
-export const PRIO = [
-  ["rendah", "Rendah", "var(--prio-rendah)"],
-  ["sedang", "Sedang", "var(--prio-sedang)"],
-  ["tinggi", "Tinggi", "var(--prio-tinggi)"],
+export const JENIS = [
+  ["individu", "Individu"],
+  ["kelompok", "Kelompok"],
+];
+export const TEMA = [
+  ["otomatis", "Otomatis"],
+  ["terang", "Terang"],
+  ["gelap", "Gelap"],
 ];
 export const STATUS = [
   ["belum", "Belum"],
@@ -27,7 +32,7 @@ export const STATUS = [
   ["selesai", "Selesai"],
 ];
 export const NAMA_HARI = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
-export const LAYAR = ["#beranda", "#tugas", "#proyek", "#agenda", "#statistik"];
+export const LAYAR = ["#beranda", "#tugas", "#proyek", "#agenda", "#profil"];
 
 // Agenda: kategori berwarna (id, nama, warna) & pilihan pengingat
 export const KATEGORI = [

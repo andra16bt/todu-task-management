@@ -1,6 +1,6 @@
 /* Form tambah/ubah tugas (bottom sheet #sheet) */
 import { $, esc, ico, uid, tgl, val, opts } from "../utils.js";
-import { TIPE, PRIO, STATUS } from "../config.js";
+import { TIPE, JENIS, STATUS } from "../config.js";
 import { state } from "../state.js";
 import { dlJam, setStatus } from "../rules.js";
 import { setErr, toast } from "../ui.js";
@@ -39,7 +39,7 @@ export function bukaForm(id) {
   edit = id ? state.tugas.find((t) => t.id === id) : null;
   const t = edit || {
     tipe: "tugas",
-    prioritas: "sedang",
+    jenis: "individu",
     mataKuliahId: state.matkul[0] ? state.matkul[0].id : "",
     status: "belum",
     judul: "",
@@ -55,7 +55,7 @@ export function bukaForm(id) {
   $("#o-tipe").innerHTML = opts("tipe", TIPE, t.tipe);
   rMkOpts(t.mataKuliahId);
   $("#e-mk-pilih").hidden = true;
-  $("#o-prio").innerHTML = opts("prio", PRIO, t.prioritas);
+  $("#o-jenis").innerHTML = opts("jenis", JENIS, t.jenis || "individu");
   $("#o-status").innerHTML = opts("status", STATUS, t.status);
   $("#g-status").hidden = $("#b-hapus").hidden = !edit;
   lk = JSON.parse(JSON.stringify(t.langkah || []));
@@ -121,10 +121,11 @@ function simpanForm(e) {
     mataKuliahId: val("mk"),
     tipe,
     deadline: new Date(tg + "T" + jm).toISOString(),
-    prioritas: val("prio"),
+    jenis: val("jenis") || "individu",
     catatan: $("#f-catatan").value.trim(),
     langkah: tipe === "proyek" ? lk : [],
   });
+  delete t.prioritas; // kolom lama, sudah diganti jenis
   let st = edit ? val("status") : "belum";
   if (tipe === "proyek" && lk.length && lk.every((l) => l.selesai)) st = "selesai"; // semua langkah beres = proyek selesai
   setStatus(t, st);

@@ -2,6 +2,7 @@
 import { state } from "./state.js";
 import { LAYAR } from "./config.js";
 import { $ } from "./utils.js";
+import { segarkanProfil } from "./profil.js";
 import { renderSemua } from "./views/view-index.js";
 
 const URUTAN = LAYAR.map((h) => h.slice(1)); // urutan layar untuk arah geser
@@ -24,6 +25,8 @@ function pindahLayar(layar) {
       : a.removeAttribute("aria-current"),
   );
   $(".nav").style.setProperty("--n", Math.max(0, links.findIndex((a) => a.getAttribute("href") === menu)));
+
+  if (layar === "profil") segarkanProfil();
 
   // animasi masuk layar (geser dari arah tab tujuan)
   const el = $("#" + layar),

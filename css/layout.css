@@ -13,7 +13,7 @@ main {
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: calc(var(--sp-4) + env(safe-area-inset-top)) var(--sp-4) var(--sp-4);
+  padding: 0;
 }
 .pagehead {
   display: flex;
@@ -37,12 +37,13 @@ main {
 
 /* Layar aktif ditentukan atribut data-layar di .app (diatur js/router.js).
    Sheet & dialog tetap memakai :target, jadi layar di belakangnya tidak hilang. */
-.screen { display: none; }
+/* Padding ada di tiap layar (bukan di <main>) supaya tidak hilang saat browser menggulung ke #layar */
+.screen { display: none; padding: calc(var(--sp-4) + env(safe-area-inset-top)) var(--sp-4) var(--sp-4); }
 .app[data-layar="beranda"] #beranda,
 .app[data-layar="tugas"] #tugas,
 .app[data-layar="proyek"] #proyek,
 .app[data-layar="agenda"] #agenda,
-.app[data-layar="statistik"] #statistik { display: block; }
+.app[data-layar="profil"] #profil { display: block; }
 .app[data-layar="welcome"] #welcome {
   display: grid;
   align-content: center;
@@ -59,7 +60,6 @@ main {
 .app[data-layar="proyek"] .addbar-tugas,
 .app[data-layar="agenda"] .addbar-agenda { display: flex; }
 .app:has(.sheet:target) .addbar { display: none; }
-.logo { width: 96px; height: 96px; }
 
 /* Dock: tombol tambah + navigasi bawah */
 .dock {
