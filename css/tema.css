@@ -48,3 +48,7 @@
 [data-tema="gelap"] .badge { color: #2b0a08; }
 [data-tema="gelap"] .sw input:checked + span { outline-color: rgba(255, 255, 255, 0.35); }
 [data-tema="gelap"] .sheet { background: rgba(0, 0, 0, 0.6); }
+
+/* Kalender */
+[data-tema="gelap"] .kal-hari.today .n { background: var(--lime); color: #10140f; }
+[data-tema="gelap"] .kal-hari.pilih { box-shadow: inset 0 0 0 2px var(--lime); }

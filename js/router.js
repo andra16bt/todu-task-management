@@ -3,6 +3,7 @@ import { state } from "./state.js";
 import { LAYAR } from "./config.js";
 import { $ } from "./utils.js";
 import { segarkanProfil } from "./profil.js";
+import { resetKalender } from "./views/view-kalender.js";
 import { renderSemua } from "./views/view-index.js";
 
 const URUTAN = LAYAR.map((h) => h.slice(1)); // urutan layar untuk arah geser
@@ -27,6 +28,7 @@ function pindahLayar(layar) {
   $(".nav").style.setProperty("--n", Math.max(0, links.findIndex((a) => a.getAttribute("href") === menu)));
 
   if (layar === "profil") segarkanProfil();
+  if (layar === "kalender") resetKalender(); // selalu mulai dari hari ini
 
   // animasi masuk layar (geser dari arah tab tujuan)
   const el = $("#" + layar),

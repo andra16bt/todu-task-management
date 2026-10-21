@@ -32,7 +32,7 @@ export const STATUS = [
   ["selesai", "Selesai"],
 ];
 export const NAMA_HARI = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
-export const LAYAR = ["#beranda", "#tugas", "#proyek", "#agenda", "#profil"];
+export const LAYAR = ["#beranda", "#tugas", "#proyek", "#agenda", "#kalender", "#profil"];
 
 // Agenda: kategori berwarna (id, nama, warna) & pilihan pengingat
 export const KATEGORI = [
@@ -48,3 +48,6 @@ export const INGAT = [
   ["1hari", "1 hari sebelum"],
 ];
 export const INGAT_MS = { "1jam": 36e5, "1hari": 864e5 };
+
+// Kalender: rentang jam yang dihitung untuk "jam kosong" (jam), dan lama minimal slot (menit)
+export const JAM_KOSONG = { awal: 8, akhir: 22, min: 30 };

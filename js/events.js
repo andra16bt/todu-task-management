@@ -2,6 +2,7 @@
 import { state } from "./state.js";
 import { toggleSelesai } from "./actions.js";
 import { tujuanDialog } from "./dialog.js";
+import { pilihHari, geserBulan, kembaliHariIni } from "./views/view-kalender.js";
 import { eksporData, pilihFileImpor, bersihkanSelesai, hapusSemua } from "./profil.js";
 import {
   bukaForm,
@@ -49,6 +50,12 @@ export function initEvents() {
         return;
       case "minta-hapus-agenda":
         return mintaHapusAgenda();
+      case "kal-hari":
+        return pilihHari(el.dataset.tgl);
+      case "kal-bulan":
+        return geserBulan(+el.dataset.d);
+      case "kal-hariini":
+        return kembaliHariIni();
       case "ekspor":
         return eksporData();
       case "impor":

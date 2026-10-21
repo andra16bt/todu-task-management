@@ -43,6 +43,7 @@ main {
 .app[data-layar="tugas"] #tugas,
 .app[data-layar="proyek"] #proyek,
 .app[data-layar="agenda"] #agenda,
+.app[data-layar="kalender"] #kalender,
 .app[data-layar="profil"] #profil { display: block; }
 .app[data-layar="welcome"] #welcome {
   display: grid;
@@ -74,7 +75,7 @@ main {
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: var(--sp-1);
   height: 64px;
   padding: var(--sp-1);
@@ -105,7 +106,7 @@ main {
   top: var(--sp-1);
   bottom: var(--sp-1);
   left: var(--sp-1);
-  width: calc((100% - 20px) / 4);
+  width: calc((100% - 24px) / 5);
   border-radius: var(--r-pill);
   background: var(--ink);
   transform: translateX(calc(var(--n, 0) * (100% + var(--sp-1))));

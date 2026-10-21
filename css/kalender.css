@@ -1,0 +1,61 @@
+/* Layar Kalender */
+.kal { margin-bottom: var(--sp-3); padding: var(--sp-4); background: var(--low); border-radius: var(--r-lg); }
+.kal-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.kal-nav { display: flex; align-items: center; gap: var(--sp-2); }
+.kal .icon-btn { background: var(--highest); }
+.kal-top .chip { height: 32px; padding: 0 14px; border: 0; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+.kal-week, .kal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.kal-week { margin-bottom: var(--sp-1); text-align: center; font-size: 11px; font-weight: 700; color: var(--muted); }
+.kal-grid { gap: 2px; }
+.kal-hari {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 3px;
+  min-height: 54px;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+}
+.kal-hari:active { transform: scale(0.92); }
+.kal-hari .n {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.kal-hari.luar { opacity: 0.4; }
+.kal-hari.padat { background: var(--mid); }
+.kal-hari.today .n { background: var(--ink); color: var(--lime); }
+.kal-hari.pilih { box-shadow: inset 0 0 0 2px var(--ink); }
+.titik { display: flex; justify-content: center; gap: 3px; height: 6px; }
+.kd { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+.kd.kt { border-radius: 2px; background: var(--olive); }
+.kd.kt.late { background: var(--err); }
+.kd.kt.ok { background: transparent; box-shadow: inset 0 0 0 1.5px var(--olive); }
+.kal-legenda { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: var(--sp-3); }
+.kal-legenda .kd { margin-left: 8px; }
+.kal-legenda .kd:first-child { margin-left: 0; }
+
+.kal-sub {
+  margin: var(--sp-4) 0 var(--sp-2);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+.slots { display: flex; flex-wrap: wrap; justify-content: inherit; gap: 6px; margin: var(--sp-2) 0; }
+.kal-slot .muted:last-child, .kal-free .muted:last-child { margin-top: var(--sp-1); }
+.kal-free .slots { justify-content: center; }
